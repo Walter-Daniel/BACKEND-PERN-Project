@@ -1,9 +1,11 @@
-import { Sequelize } from 'sequelize';
+import { Sequelize } from 'sequelize-typescript';
 import dotenv from 'dotenv';
 dotenv.config()
 
 const url = process.env.DB_URL
 
-const db = new Sequelize(url);
+const db = new Sequelize(url, {
+    models: [__dirname + '/../models/**/*.ts']
+});
 
 export default db;
