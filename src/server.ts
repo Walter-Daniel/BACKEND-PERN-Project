@@ -17,7 +17,13 @@ async function connectDB() {
 }
 connectDB()
 
+//Server instance
+
 const server = express();
+
+//Read data
+
+server.use(express.json());
 
 //Routing
 
