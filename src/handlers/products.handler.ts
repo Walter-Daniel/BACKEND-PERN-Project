@@ -62,7 +62,7 @@ export const createProduct = async(req: Request, res: Response) => {
 
     try {
         const product = await Product.create(req.body);
-        res.json({
+        res.status(201).json({
             ok: true,
             data: product
         });
