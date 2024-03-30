@@ -1,6 +1,9 @@
 import express from 'express';
 import productRouter from './router';
-import db from './config/db'
+import db from './config/db';
+import swaggerUi from 'swagger-ui-express';
+import swaggerSpec from './config/swagger';
+
 
 //Connected DB
 
@@ -28,11 +31,8 @@ server.use(express.json());
 
 server.use('/api/products', productRouter);
 
-//testing
-
-server.get('/api', (req, res) => {
-    res.json({msg: 'desde Api'})
-})
+//Docs
+server.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 
 export default server;
