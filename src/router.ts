@@ -38,12 +38,13 @@ router.put('/:id',
 
 router.patch('/:id',
     param('id').isInt().withMessage('Id no válido'),
+    handleInputError,
     updateAvailability
  )
 
 router.delete('/:id',
     param('id').isInt().withMessage('Id no válido'),
-    updateAvailability,
+    handleInputError,
     deleteProduct
 )
 
