@@ -2,7 +2,7 @@ import express from 'express';
 import productRouter from './router';
 import db from './config/db';
 import swaggerUi from 'swagger-ui-express';
-import swaggerSpec from './config/swagger';
+import swaggerSpec, { swaggerUiOptions } from './config/swagger';
 
 
 //Connected DB
@@ -32,7 +32,7 @@ server.use(express.json());
 server.use('/api/products', productRouter);
 
 //Docs
-server.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+server.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec, swaggerUiOptions));
 
 
 export default server;
