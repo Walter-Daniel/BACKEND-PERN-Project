@@ -13,7 +13,7 @@ export async function connectDB() {
     try {
         console.log('\x1b[36m iniciando la conexión\x1b[37m')
         await db.authenticate()
-        db.sync()
+        await db.sync()
         // console.log('\x1b[34m conectado a la base de datos \x1b[37m')        
     } catch (error) {
         console.log('\x1b[31m Error al conectarse a la base de datos \x1b[37m')
