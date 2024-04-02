@@ -27,13 +27,14 @@ const server = express();
 
 //Connect Cors
 const corsOptions: CorsOptions = {
-    origin: function(origin, callback) {
-        if(origin === `${process.env.FRONTEND_URL}`){
-            callback(null, true)
-        }else{
-            callback(new Error('Error CORS'))
-        }
-    }
+    origin: '*'
+    // origin: function(origin, callback) {
+    //     if(origin === `${process.env.FRONTEND_URL}`){
+    //         callback(null, true)
+    //     }else{
+    //         callback(new Error('Error CORS'))
+    //     }
+    // }
 } 
 server.use(cors(corsOptions))
 
@@ -47,8 +48,16 @@ server.use(morgan('dev'));
 
 server.use('/api/products', productRouter);
 
-//Docs
+//Docs - make Swagger documentation public
 server.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec, swaggerUiOptions));
+
+// Allow CORS for frontend
+server.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', process.env.FRONTEND_URL);
+    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,PATCH');
+    res.header('Access-Control-Allow-Headers', 'Content-Type');
+    next();
+});
 
 
 export default server;
