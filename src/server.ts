@@ -48,16 +48,7 @@ server.use(morgan('dev'));
 
 server.use('/api/products', productRouter);
 
-//Docs - make Swagger documentation public
+//Docs
 server.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec, swaggerUiOptions));
-
-// Allow CORS for frontend
-server.use((req, res, next) => {
-    res.header('Access-Control-Allow-Origin', process.env.FRONTEND_URL);
-    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,PATCH');
-    res.header('Access-Control-Allow-Headers', 'Content-Type');
-    next();
-});
-
 
 export default server;
