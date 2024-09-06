@@ -4,23 +4,37 @@ import Product from '../models/Product.model';
 
 export const getProducts = async(req: Request, res:Response) => {
 
-    const products = await Product.findAll({
-        order: [
-            // ['id', 'DESc']
-            ['price', 'DESC']
-        ],
-        limit: 10,
-        attributes: {
-            exclude:[
-                'createdAt', 'updatedAt'
-            ]
-        }
-    })
+    try {
+        const products = await Product.findAll({
+            order: [
+                // ['id', 'DESc']
+                ['price', 'DESC']
+            ],
+            limit: 10,
+            attributes: {
+                exclude:[
+                    'createdAt', 'updatedAt'
+                ]
+            }
+        })
 
-    res.status(200).json({
-        ok: true,
-        data: products
-    })
+        if(!products){
+            return res.status(404).json({
+                ok: false,
+                error: 'No se encontraron productos'
+            })
+        }
+    
+        return res.status(200).json({
+            ok: true,
+            data: products
+        })
+    } catch (error) {
+        return res.status(500).json({
+            ok: false,
+            error: 'Error al obtener los productos'
+        })
+    }
 
 }
 
